@@ -1,11 +1,11 @@
 require("dotenv").config();
 var keys = require("./keys.js");
 
-
 var command = process.argv[2];
 
 var concert = function() {
     axios = require("axios");
+    moment = require("moment");
     input = process.argv;
     bandName = process.argv.slice(3).join(" ");
     
@@ -16,7 +16,7 @@ var concert = function() {
         function(response) {
             console.log(response.data[0].venue.name);
             console.log(response.data[0].venue.city);
-            console.log(response.data[0].datetime);
+            console.log(moment(response.data[0].datetime).format("MM/DD/YYYY"));
         })
         .catch(function(error) {
             if(error.response) {
