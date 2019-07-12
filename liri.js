@@ -112,14 +112,6 @@ var movie = function() {
     } 
     else {
     movieName = process.argv.slice(3).join(" "); 
-    
-    // for (var i = 3; i < input.length; i++) {
-    //     if (i > 2 && i < input.length) {
-    //         movieName = movieName + "+" + input[i];
-    //       } else {
-    //         movieName += input[i];
-    //       }
-    // }
 
     queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&apikey=trilogy";
 
