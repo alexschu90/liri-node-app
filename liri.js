@@ -3,6 +3,16 @@ var keys = require("./keys.js");
 
 var command = process.argv[2];
 
+var log = function() {
+    fs = require("fs");
+    fs.appendFile("log.txt", process.argv.slice(3).join(" ") + ", \n", function(err) {
+        if (err) {
+            console.log(err);
+          }
+    })
+}
+
+
 var concert = function() {
     axios = require("axios");
     moment = require("moment");
@@ -178,17 +188,21 @@ var doThis = function() {
 switch (command) {
     case "concert-this":
         concert(); 
+        log();
         break;
 
     case "spotify-this-song":
         spotify(); 
+        log();
         break; 
     
     case "movie-this":
         movie(); 
+        log();
         break; 
 
     case "do-what-it-says":
         doThis();
+        log();
         break; 
 }
