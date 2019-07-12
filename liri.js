@@ -1,6 +1,6 @@
 require("dotenv").config();
 var keys = require("./keys.js");
-// var spotify = new Spotify(keys.spotify);
+
 
 var command = process.argv[2];
 
@@ -9,7 +9,30 @@ var concert = function() {
 };
 
 var spotify = function() {
+    Spotify = require('node-spotify-api');
+    spotify = new Spotify(keys.spotify);
 
+    input = process.argv;
+    songName = "";
+
+    for (var i = 3; i < input.length; i++) {
+        if (i > 2 && i < input.length) {
+            songName = songName + "+" + input[i];
+          } else {
+            songName += input[i];
+          }
+    }
+
+    spotify.search({ type: 'track', query: songName, limit: 1})
+    .then(function(response) {
+    console.log("Artist: " + response.tracks.items[0].artists[0].name);
+    console.log("Song Title: " + response.tracks.items[0].name);
+    console.log("Preview Link: " + response.tracks.items[0].preview_url);
+    console.log("Album Title: " + response.tracks.items[0].album.name);
+    })
+    .catch(function(err) {
+    console.log(err);
+    });
 };
 
 var movie = function() {
