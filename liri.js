@@ -92,6 +92,7 @@ var movie = function() {
               console.log("Plot: " + response.data.Plot);
               console.log("Actors: " + response.data.Actors);
               console.log("IMDB Rating: " + response.data.Ratings[0].Value);
+              console.log("If you haven't watched \"Mr.Nobody\", then you should: http://www.imdb.com/title/tt0485947/. \nIt's on Netflix!")
      
             })
             .catch(function(error) {
