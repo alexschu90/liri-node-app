@@ -5,7 +5,34 @@ var keys = require("./keys.js");
 var command = process.argv[2];
 
 var concert = function() {
+    axios = require("axios");
+    input = process.argv;
+    bandName = process.argv.slice(3).join(" ");
+    
 
+    queryUrl = "https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=codingbootcamp";
+
+    axios.get(queryUrl).then(
+        function(response) {
+            console.log(response.data[0].venue.name);
+            console.log(response.data[0].venue.city);
+            console.log(response.data[0].datetime);
+        })
+        .catch(function(error) {
+            if(error.response) {
+                console.log("---------------Data---------------");
+                console.log(error.response.data);
+                console.log("---------------Status---------------");
+                console.log(error.response.status);
+                console.log("---------------Status---------------");
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Error", error.message);
+            }
+            console.log(error.config);
+        })
 };
 
 var spotify = function() {
