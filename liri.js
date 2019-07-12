@@ -107,7 +107,31 @@ var movie = function() {
 };
 
 var doThis = function() {
+    fs = require("fs");
 
+    fs.readFile("random.txt", "utf8", function(error, action) {
+        if(error) {
+            return console.log(error);
+        }
+        actionArr = action.split(",");
+
+        if (actionArr[0] === "spotify-this-song") {
+            Spotify = require('node-spotify-api');
+            spotify = new Spotify(keys.spotify);
+            songName = actionArr[1];
+
+            spotify.search({ type: 'track', query: songName, limit: 1})
+            .then(function(response) {
+            console.log("Artist: " + response.tracks.items[0].artists[0].name);
+            console.log("Song Title: " + response.tracks.items[0].name);
+            console.log("Preview Link: " + response.tracks.items[0].preview_url);
+            console.log("Album Title: " + response.tracks.items[0].album.name);
+            })
+            .catch(function(err) {
+            console.log(err);
+            });
+        }
+    })
 }
 
 
