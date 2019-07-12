@@ -9,6 +9,13 @@ var log = function() {
         if (err) {
             console.log(err);
           }
+        if (!process.argv[3]) {
+            fs.appendFile("log.txt", "Default Command: NO SPECIFIC INPUT" + ", \n", function(err){
+                if (err) {
+                    console.log(err); 
+                }
+            })
+        }
     })
 }
 
