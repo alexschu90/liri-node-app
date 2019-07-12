@@ -40,26 +40,41 @@ var spotify = function() {
     spotify = new Spotify(keys.spotify);
 
     input = process.argv;
-    songName = "";
+    
+    if (!input[3]) {
+        // songName = "The+Sign" 
+        spotify.search({ type: 'track', query: "The Sign"})
+        .then(function(response) {
+        console.log("Artist: " + response.tracks.items[5].artists[0].name);
+        console.log("Song Title: " + response.tracks.items[5].name);
+        console.log("Preview Link: " + response.tracks.items[5].preview_url);
+        console.log("Album Title: " + response.tracks.items[5].album.name);
+        })
+        .catch(function(err) {
+        console.log(err);
+        });
+    } else {
+        songName = "";
 
-    for (var i = 3; i < input.length; i++) {
-        if (i > 2 && i < input.length) {
-            songName = songName + "+" + input[i];
-          } else {
-            songName += input[i];
-          }
+        for (var i = 3; i < input.length; i++) {
+            if (i > 2 && i < input.length) {
+                songName = songName + "+" + input[i];
+            } else {
+                songName += input[i];
+            }
+        }
+
+        spotify.search({ type: 'track', query: songName, limit: 1})
+        .then(function(response) {
+        console.log("Artist: " + response.tracks.items[0].artists[0].name);
+        console.log("Song Title: " + response.tracks.items[0].name);
+        console.log("Preview Link: " + response.tracks.items[0].preview_url);
+        console.log("Album Title: " + response.tracks.items[0].album.name);
+        })
+        .catch(function(err) {
+        console.log(err);
+        });
     }
-
-    spotify.search({ type: 'track', query: songName, limit: 1})
-    .then(function(response) {
-    console.log("Artist: " + response.tracks.items[0].artists[0].name);
-    console.log("Song Title: " + response.tracks.items[0].name);
-    console.log("Preview Link: " + response.tracks.items[0].preview_url);
-    console.log("Album Title: " + response.tracks.items[0].album.name);
-    })
-    .catch(function(err) {
-    console.log(err);
-    });
 };
 
 var movie = function() {
